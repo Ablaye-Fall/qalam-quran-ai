@@ -19,11 +19,14 @@ st.title("🕌 Qalam Quran - Assistant pour découvrir le Coran et la langue ara
 # 1. Sélection de la sourate
 st.subheader("1. Choisis une sourate")
 response = requests.get("https://api.quran.com/v4/chapters")
-surah_list = response.json()["chapters"]
-surah_names = [f"{s['id']}. {s['name_arabic']} ({s['name_simple']})" for s in surah_list]
-surah_id = st.selectbox("Sourate", surah_names)
-surah_number = int(surah_id.split(".")[0])
-
+if response.status_code == 200:
+   surah_list = response.json()["chapters"]
+   surah_names = [f"{s['id']}. {s['name_arabic']} ({s['name_simple']})" for s in surah_list]
+   surah_id = st.selectbox("Sourate", surah_names)
+   surah_number = int(surah_id.split(".")[0])
+# appel API avec vérification
+else:
+  st.error("X impossible de récupérer les sourates. Vérifie ta connexion internet ou l'URL de l'API.")
 # 2. Affichage des versets
 st.subheader("2. Versets avec audio")
 verses = requests.get(f"https://api.quran.com/v4/quran/verses/uthmani?chapter_number={surah_number}").json()["verses"]
