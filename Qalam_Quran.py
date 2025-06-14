@@ -20,10 +20,14 @@ st.title("🕌 Qalam Quran - Assistant pour découvrir le Coran et la langue ara
 st.subheader("1. Choisis une sourate")
 response = requests.get("https://api.quran.com/v4/chapters")
 if response.status_code == 200:
-   surah_list = response.json()["chapters"]
-   surah_names = [f"{s['id']}. {s['name_arabic']} ({s['name_simple']})" for s in surah_list]
-   surah_id = st.selectbox("Sourate", surah_names)
-   surah_number = int(surah_id.split(".")[0])
+    try:
+       data = response.json()
+       surah_list = response.json()["chapters"]
+       surah_names = [f"{s['id']}. {s['name_arabic']} ({s['name_simple']})" for s in surah_list]
+       surah_id = st.selectbox("Sourate", surah_names)
+       surah_number = int(surah_id.split(".")[0])
+    except Exception as e:
+       st.error(f"Erreur lors du décodage des données JSON: {e}")
 # appel API avec vérification
 else:
   st.error("X impossible de récupérer les sourates. Vérifie ta connexion internet ou l'URL de l'API.")
