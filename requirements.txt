@@ -1,5 +1,8 @@
 streamlit
-openai
+openai-xhisper
 requests
 pandas
+pydub
+soundfile
+torch
 matplotlib
