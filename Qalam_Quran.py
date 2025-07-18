@@ -19,7 +19,7 @@ st.title("🕌 Qalam Quran - Assistant pour découvrir le Coran et la langue ara
 
 # 1. Sélection de la sourate
 st.subheader("1. Choisis une sourate")
-response = requests.get("https://api.quran.com/v4/chapters")
+response = requests.get("https://api.quran.com/v1/chapters")
 data = response.json()
 surah_list = response.json()["chapters"]
 surah_names = [f"{s['id']}. {s['name_arabic']} ({s['name_simple']})" for s in surah_list]
