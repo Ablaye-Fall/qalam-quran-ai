@@ -8,6 +8,7 @@ from io import BytesIO
 from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
+from quran_api import get_surah_list, get_surah, get_verse_audio_url
 
 # Configuration API OpenAI
 openai.api_key = st.secrets["OPENAI_API_KEY"] if "OPENAI_API_KEY" in st.secrets else os.getenv("OPENAI_API_KEY")
